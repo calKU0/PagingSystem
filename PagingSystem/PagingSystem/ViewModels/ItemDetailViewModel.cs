@@ -2,6 +2,8 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace PagingSystem.ViewModels
@@ -9,6 +11,12 @@ namespace PagingSystem.ViewModels
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
+        public ItemDetailViewModel()
+        {
+            CompleteReportCommand = new Command(async () => await DataStore.UpdateItemAsync(itemId));
+        }
+        public ICommand CompleteReportCommand { get; }
+
         private string itemId;
         private string text;
         private string description;
