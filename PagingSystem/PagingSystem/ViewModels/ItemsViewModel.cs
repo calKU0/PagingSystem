@@ -19,7 +19,7 @@ namespace PagingSystem.ViewModels
 
         public ItemsViewModel()
         {
-            Title = "Browse";
+            Title = "Zlecenia";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
@@ -28,14 +28,13 @@ namespace PagingSystem.ViewModels
             RefreshPageCommand = new Command(RefreshPage);
         }
 
-        async Task ExecuteLoadItemsCommand()
+        public async Task ExecuteLoadItemsCommand(int status = 2)
         {
             IsBusy = true;
-
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await DataStore.GetItemsAsync(true, status);
                 foreach (var item in items)
                 {
                     Items.Add(item);

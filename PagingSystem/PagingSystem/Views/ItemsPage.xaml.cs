@@ -4,6 +4,7 @@ using PagingSystem.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,13 @@ namespace PagingSystem.Views
         {
             base.OnAppearing();
             _viewModel.OnAppearing();
+        }
+
+        private async void statusPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (IsBusy == true) return;
+            int selectedStatusIndex = statusPicker.SelectedIndex;
+            await _viewModel.ExecuteLoadItemsCommand(selectedStatusIndex);
         }
     }
 }
